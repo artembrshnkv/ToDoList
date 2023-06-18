@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <p>Hello world</p>
+    <p>ToDoList by Artem Baryshnikov</p>
+    {% for m in menu %}
+        <a href="{% url m.url %}">{{ m.name }}</a>
+    {% endfor %}
+{% block content %}
+    <p>Главная страница</p>
+{%endblock %}
 </body>
 </html>
