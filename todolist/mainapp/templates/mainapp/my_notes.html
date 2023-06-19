@@ -1,4 +1,8 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
     <p>Мои заметки</p>
+    {% if user.is_authenticated %}
+        <p>Вы авторизованы как {{ user.username }}</p>
+        <button><a href="{% url 'logout' %}">Выход</a></button>
+    {% endif %}
 {% endblock %}

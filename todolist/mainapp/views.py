@@ -1,7 +1,7 @@
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import *
@@ -9,17 +9,21 @@ from .forms import *
 from .utils import *
 
 
+def render_result(request, template_name: str):
+    return render(request, template_name, context=context)
+
+
 def home(request):
-    return render(request, 'mainapp/base.html', context=context)
+    return render_result(request, 'mainapp/base.html')
 
 
 @login_required
 def add_note(request):
-    return render(request, 'mainapp/add_note.html', context=context)
+    return render_result(request, 'mainapp/add_note.html')
 
 
 def my_notes(request):
-    return render(request, 'mainapp/my_notes.html', context=context)
+    return render_result(request, 'mainapp/my_notes.html')
 
 
 class UserLogin(LoginView):
@@ -40,3 +44,10 @@ class UserRegistration(CreateView):
         con = super().get_context_data(**kwargs)
         con['menu'] = context['menu']
         return con
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
+
