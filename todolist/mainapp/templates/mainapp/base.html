@@ -7,7 +7,11 @@
 <body>
     <p>ToDoList by Artem Baryshnikov</p>
     {% for m in menu %}
-        <a href="{% url m.url %}">{{ m.name }}</a>
+        {% if user.is_authenticated and m.url == 'login' or user.is_authenticated and m.url == 'registration'%}
+            {{ continue }}
+        {% else %}
+            <a href="{% url m.url %}">{{ m.name }}</a>
+        {% endif %}
     {% endfor %}
 {% block content %}
     <p>Главная страница</p>

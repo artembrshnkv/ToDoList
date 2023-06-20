@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -20,6 +21,23 @@ def home(request):
 @login_required
 def add_note(request):
     return render_result(request, 'mainapp/add_note.html')
+
+
+class AddNote(LoginRequiredMixin, CreateView):
+    form_class = AddNoteForm
+    template_name = 'mainapp/add_note.html'
+    initial = {
+        'user_id': '',
+    }
+
+
+    def get_context_data(self, **kwargs):
+        con = super().get_context_data(**kwargs)
+        con['menu'] = context['menu']
+        return con
+
+    def get_user_pk(self):
+        return self.request.user.pk
 
 
 def my_notes(request):
