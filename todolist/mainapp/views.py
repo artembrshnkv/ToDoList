@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, ListView
 from .forms import *
 
 from .utils import *
@@ -26,22 +26,29 @@ def add_note(request):
 class AddNote(LoginRequiredMixin, CreateView):
     form_class = AddNoteForm
     template_name = 'mainapp/add_note.html'
-    initial = {
-        'user_id': '',
-    }
-
 
     def get_context_data(self, **kwargs):
         con = super().get_context_data(**kwargs)
         con['menu'] = context['menu']
         return con
 
-    def get_user_pk(self):
-        return self.request.user.pk
+
+# def my_notes(request):
+#     return render_result(request, 'mainapp/my_notes.html')
 
 
-def my_notes(request):
-    return render_result(request, 'mainapp/my_notes.html')
+class MyNotes(LoginRequiredMixin, ListView):
+    template_name = 'mainapp/my_notes.html'
+    context_object_name = 'my_notes'
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        con = super().get_context_data(**kwargs)
+        con['menu'] = context['menu']
+        return con
+
+    def get_queryset(self):
+        return Note.objects.filter(user_id_id=self.request.user.pk)
 
 
 class UserLogin(LoginView):

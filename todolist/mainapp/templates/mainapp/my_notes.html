@@ -3,6 +3,14 @@
     <p>Мои заметки</p>
     {% if user.is_authenticated %}
         <p>Вы авторизованы как {{ user.username }}</p>
+        {% if my_notes %}
+            {% for note in my_notes %}
+                <h3>{{ note.title }}</h3>
+                <p>{{ note.content }}</p>
+            {% endfor %}
+        {% else %}
+            <p>У вас пока нет заметок</p>
+        {% endif %}
         <button><a href="{% url 'logout' %}">Выход</a></button>
     {% endif %}
 {% endblock %}
