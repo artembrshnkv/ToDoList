@@ -26,6 +26,7 @@ def add_note(request):
 class AddNote(LoginRequiredMixin, CreateView):
     form_class = AddNoteForm
     template_name = 'mainapp/add_note.html'
+    success_url = reverse_lazy('my_notes')
 
     def get_context_data(self, **kwargs):
         con = super().get_context_data(**kwargs)

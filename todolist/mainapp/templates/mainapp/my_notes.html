@@ -2,15 +2,17 @@
 {% block content %}
     <p>Мои заметки</p>
     {% if user.is_authenticated %}
-        <p>Вы авторизованы как {{ user.username }}</p>
+        <p>Вы авторизованы как {{ user.username }}</p><hr>
         {% if my_notes %}
             {% for note in my_notes %}
-                <h3>{{ note.title }}</h3>
+                <h3>{{ note.title }} | {{ note.rubric }} | {{ note.time_creation  }}</h3>
                 <p>{{ note.content }}</p>
+                <hr>
             {% endfor %}
         {% else %}
             <p>У вас пока нет заметок</p>
+            <a href="{% url 'add_note' %}">Добавить заметку</a>
         {% endif %}
-        <button><a href="{% url 'logout' %}">Выход</a></button>
+            <button><a href="{% url 'logout' %}">Выход</a></button>
     {% endif %}
 {% endblock %}

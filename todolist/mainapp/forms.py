@@ -20,5 +20,5 @@ class AddNoteForm(ModelForm):
 
     class Meta:
         model = Note
-        fields = ['title', 'content', 'photo', 'rubric', 'user_id']
+        fields = ['title', 'content', 'rubric', 'user_id']
 
