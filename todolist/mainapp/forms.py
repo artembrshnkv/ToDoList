@@ -22,3 +22,12 @@ class AddNoteForm(ModelForm):
         model = Note
         fields = ['title', 'content', 'rubric', 'user_id']
 
+
+class NoteUpdate(ModelForm):
+
+    class Meta:
+        model = Note
+        fields = ['title', 'content', 'rubric']
+
+
+

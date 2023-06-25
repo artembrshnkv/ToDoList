@@ -10,3 +10,10 @@ menu = [
 
 context = {'menu': menu}
 
+
+class BaseMixin:
+
+    def same_data(self, **kwargs):
+        kwargs['menu'] = menu
+        return kwargs
+
