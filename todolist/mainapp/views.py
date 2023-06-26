@@ -73,6 +73,9 @@ class NoteUpdate(LoginRequiredMixin,BaseMixin, UpdateView):
         c_def = self.same_data(**kwargs)
         return dict(list(con.items()) + list(c_def.items()))
 
+    def get_queryset(self):
+        return Note.objects.get(pk=1)
+
 
 def user_logout(request):
     logout(request)

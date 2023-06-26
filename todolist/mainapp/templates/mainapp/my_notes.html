@@ -7,7 +7,7 @@
             {% for note in my_notes %}
                 <h3>{{ note.title }} | {{ note.rubric }} | {{ note.time_creation  }}</h3>
                 <p>{{ note.content }}</p>
-                <a href="{% url 'note_update' %}">Редактировать заметку</a>
+                <a href="{{ note.get_absolute_url }}">Редактировать заметку</a>
                 <hr>
             {% endfor %}
         {% else %}

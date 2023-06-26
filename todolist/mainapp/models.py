@@ -12,6 +12,10 @@ class Note(models.Model):
     rubric = models.ForeignKey('Rubric', on_delete=models.PROTECT, null=True)
     user_id = models.ForeignKey(User, on_delete=models.PROTECT, null=False)
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('note_update', kwargs={'pk': self.pk})
+
 
 class Rubric(models.Model):
     name = models.CharField(max_length=255, unique=True)
